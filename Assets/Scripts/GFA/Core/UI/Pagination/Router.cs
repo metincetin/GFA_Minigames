@@ -3,63 +3,76 @@ using UnityEngine;
 
 namespace GFA.Core.UI.Pagination
 {
-    public class Router : MonoBehaviour
-    {
-        [SerializeField]
-        private List<Page> _pages = new List<Page>();
+	public class Router : MonoBehaviour
+	{
+		[SerializeField] private List<Page> _pages = new List<Page>();
 
-        private Page _activePage;
-        public Page ActivePage
-        {
-            get => _activePage;
-            set
-            {
-                if (_activePage)
-                {
-                    _activePage.Close();
-                }
-                
-                if (value is IRouterContainer container)
-                {
-                    container.Router = this;
-                }
-                
-                _activePage = value;
-                if (_activePage)
-                {
-                    _activePage.Open();
-                }
-            }
-        }
+		private Page _activePage;
 
-        private void Start()
-        {
-            foreach (var page in _pages)
-            {
-                page.Close();
-            }
-            if (_pages.Count > 0)
-            {
-                ActivePage = _pages[0];
-            }
-        }
+		public Page ActivePage
+		{
+			get => _activePage;
+			set
+			{
+				if (_activePage)
+				{
+					_activePage.Close();
+				}
 
-        public void SetPage<T>() where T : Page
-        {
-            foreach (var page in _pages)
-            {
-                if (page is T)
-                {
+				if (value is IRouterContainer container)
+				{
+					container.Router = this;
+				}
 
-                    ActivePage = page;
-                    return;
-                }
-            }
-        }
+				_activePage = value;
+				if (_activePage)
+				{
+					_activePage.Open();
+				}
+			}
+		}
 
-        public void SetPage(int index)
-        {
-            ActivePage = _pages[index];
-        }
-    }
+		private void Start()
+		{
+			foreach (var page in _pages)
+			{
+				page.Close();
+			}
+
+			if (_pages.Count > 0)
+			{
+				ActivePage = _pages[0];
+			}
+		}
+
+		public void SetPage<T>() where T : Page
+		{
+			foreach (var page in _pages)
+			{
+				if (page is T)
+				{
+					ActivePage = page;
+					return;
+				}
+			}
+		}
+
+		public void SetPage(int index)
+		{
+			ActivePage = _pages[index];
+		}
+
+		public T GetPage<T>() where T : Page
+		{
+			foreach (var page in _pages)
+			{
+				if (page is T casted)
+				{
+					return casted;
+				}
+			}
+
+			return null;
+		}
+	}
 }

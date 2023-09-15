@@ -13,6 +13,8 @@ namespace GFA.MiniGames.Data
         public Sprite Icon => _icon;
 
         private bool _isStarted;
+
+        public MiniGameContext Context { get; set; }
         
         public void Begin()
         {
@@ -31,11 +33,19 @@ namespace GFA.MiniGames.Data
         public void End()
         {
             if (_isStarted)
+            {
+                _isStarted = false;
                 OnEnd();
+            }
         }
 
         protected abstract void OnBegin();
         protected abstract void OnTick();
         protected abstract void OnEnd();
+
+        public void Reset()
+        {
+            _isStarted = false;
+        }
     }
 }

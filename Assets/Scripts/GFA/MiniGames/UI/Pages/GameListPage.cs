@@ -28,14 +28,16 @@ namespace GFA.MiniGames.UI.Pages
                 var gameButtonInstance = Instantiate(_gameButtonPrefab, _container);
                 gameButtonInstance.MiniGame = minigame;
                 gameButtonInstance.Clicked += OnMiniGameButtonClicked;
+                minigame.Reset();
             }
         }
 
         private void OnMiniGameButtonClicked(MiniGame miniGame)
         {
             _miniGamePlayer.MiniGame = miniGame;
-            _miniGamePlayer.StartGame();
-            Router.SetPage<GamePage>();
+            var page = Router.GetPage<GamePage>();
+            _miniGamePlayer.StartGame(page.Viewport);
+            Router.ActivePage = page;
         }
 
         protected override void OnOpened()

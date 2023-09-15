@@ -18,7 +18,11 @@ namespace GFA.MiniGames.UI.Elements
         public MiniGame MiniGame
         {
             get => _miniGame;
-            set => _miniGame = value;
+            set
+            {
+                _miniGame = value; 
+                UpdateUI();
+            }
         }
         
         public event Action<MiniGame> Clicked;
