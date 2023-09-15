@@ -9,7 +9,6 @@ namespace GFA.Core.UI.Pagination
     [RequireComponent(typeof(GraphicRaycaster))]
     public abstract class Page : MonoBehaviour
     {
-
         private Canvas _canvas;
         private GraphicRaycaster _raycaster;
 

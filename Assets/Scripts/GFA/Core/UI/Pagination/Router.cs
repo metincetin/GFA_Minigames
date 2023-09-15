@@ -18,6 +18,12 @@ namespace GFA.Core.UI.Pagination
                 {
                     _activePage.Close();
                 }
+                
+                if (value is IRouterContainer container)
+                {
+                    container.Router = this;
+                }
+                
                 _activePage = value;
                 if (_activePage)
                 {
@@ -44,6 +50,7 @@ namespace GFA.Core.UI.Pagination
             {
                 if (page is T)
                 {
+
                     ActivePage = page;
                     return;
                 }
