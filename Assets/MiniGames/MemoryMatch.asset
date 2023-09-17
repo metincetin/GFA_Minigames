@@ -14,5 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _miniGameName: Memory Match
   _icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  _uiPrefab: {fileID: 5586879644680715024, guid: ee664d34752e9cd7db0024703c860aca,
+  _uiPrefab: {fileID: 2955729349408818146, guid: ee664d34752e9cd7db0024703c860aca,
     type: 3}
+  _cardSprites:
+  - {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  _gameSize: {x: 4, y: 3}

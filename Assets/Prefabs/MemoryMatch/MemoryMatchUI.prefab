@@ -93,11 +93,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cardPrefab: {fileID: 6547596582619756237, guid: e9dedd35db3b22cdf9c6c7696b8f317d,
     type: 3}
-  _container: {fileID: 36980483816458178}
+  _container: {fileID: 6416311369145435031}
   _cardSprites:
   - {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   - {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  _gameSize: {x: 4, y: 3}
 --- !u!1 &7499676624426734981
 GameObject:
   m_ObjectHideFlags: 0
@@ -157,4 +161,4 @@ MonoBehaviour:
   m_CellSize: {x: 250, y: 280}
   m_Spacing: {x: 8, y: 8}
   m_Constraint: 1
-  m_ConstraintCount: 4
+  m_ConstraintCount: 3
