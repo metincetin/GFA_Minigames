@@ -26,31 +26,31 @@ namespace GFA.MiniGames.Input
     ""name"": ""GameInput"",
     ""maps"": [
         {
-            ""name"": ""Main"",
+            ""name"": ""Generic"",
             ""id"": ""105655d0-13f6-4e81-8727-4dde6c986dcb"",
             ""actions"": [
                 {
-                    ""name"": ""A"",
-                    ""type"": ""Button"",
-                    ""id"": ""a3ffaa4f-f913-4bea-b923-94cdcd403f58"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""B"",
-                    ""type"": ""Button"",
-                    ""id"": ""b469048a-b787-486a-af22-9bfb1f1530a2"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""LeftAnalog"",
+                    ""name"": ""Navigation"",
                     ""type"": ""Value"",
                     ""id"": ""9a82b972-75f3-4105-accd-228226081bad"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Click"",
+                    ""type"": ""Button"",
+                    ""id"": ""e4a8c156-3eec-4573-ab32-83c8b3812c05"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PointerPosition"",
+                    ""type"": ""Value"",
+                    ""id"": ""54751ea5-159b-4c3c-96cf-44b793472f21"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -60,56 +60,12 @@ namespace GFA.MiniGames.Input
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""1025c1c7-0f21-4eb5-bb65-4e8af85dcf3e"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Main"",
-                    ""action"": ""A"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""1ac813a5-3dba-445a-819b-c67dd6181554"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Main"",
-                    ""action"": ""A"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""0f20df4b-25f2-4f26-b60a-c2cc56dbbb9e"",
-                    ""path"": ""<Gamepad>/buttonEast"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Main"",
-                    ""action"": ""B"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""b3cd5500-c252-4827-a5fb-7633455aa6d3"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Main"",
-                    ""action"": ""B"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""e3ed137a-d6c3-4629-8d0d-1736d9e78a32"",
                     ""path"": ""<Gamepad>/leftStick"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Main"",
-                    ""action"": ""LeftAnalog"",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""Navigation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -120,7 +76,7 @@ namespace GFA.MiniGames.Input
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""LeftAnalog"",
+                    ""action"": ""Navigation"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -130,8 +86,8 @@ namespace GFA.MiniGames.Input
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Main"",
-                    ""action"": ""LeftAnalog"",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""Navigation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -141,8 +97,8 @@ namespace GFA.MiniGames.Input
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Main"",
-                    ""action"": ""LeftAnalog"",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""Navigation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -152,8 +108,8 @@ namespace GFA.MiniGames.Input
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Main"",
-                    ""action"": ""LeftAnalog"",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""Navigation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -163,18 +119,51 @@ namespace GFA.MiniGames.Input
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Main"",
-                    ""action"": ""LeftAnalog"",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""Navigation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b0769d0c-79a5-4208-bb52-f5aabe525ee5"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""76e846e4-7ef0-48d0-ac7d-3ec0f8db04eb"",
+                    ""path"": ""<Pointer>/press"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""Click"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b46caef2-21ec-49b0-a0a4-f5af53f44283"",
+                    ""path"": ""<Pointer>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""PointerPosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
     ],
     ""controlSchemes"": [
         {
-            ""name"": ""Main"",
-            ""bindingGroup"": ""Main"",
+            ""name"": ""Keyboard & Mouse"",
+            ""bindingGroup"": ""Keyboard & Mouse"",
             ""devices"": [
                 {
                     ""devicePath"": ""<Keyboard>"",
@@ -182,19 +171,30 @@ namespace GFA.MiniGames.Input
                     ""isOR"": false
                 },
                 {
+                    ""devicePath"": ""<Pointer>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Gamepad"",
+            ""bindingGroup"": ""Gamepad"",
+            ""devices"": [
+                {
                     ""devicePath"": ""<Gamepad>"",
-                    ""isOptional"": true,
+                    ""isOptional"": false,
                     ""isOR"": false
                 }
             ]
         }
     ]
 }");
-            // Main
-            m_Main = asset.FindActionMap("Main", throwIfNotFound: true);
-            m_Main_A = m_Main.FindAction("A", throwIfNotFound: true);
-            m_Main_B = m_Main.FindAction("B", throwIfNotFound: true);
-            m_Main_LeftAnalog = m_Main.FindAction("LeftAnalog", throwIfNotFound: true);
+            // Generic
+            m_Generic = asset.FindActionMap("Generic", throwIfNotFound: true);
+            m_Generic_Navigation = m_Generic.FindAction("Navigation", throwIfNotFound: true);
+            m_Generic_Click = m_Generic.FindAction("Click", throwIfNotFound: true);
+            m_Generic_PointerPosition = m_Generic.FindAction("PointerPosition", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -253,81 +253,90 @@ namespace GFA.MiniGames.Input
             return asset.FindBinding(bindingMask, out action);
         }
 
-        // Main
-        private readonly InputActionMap m_Main;
-        private List<IMainActions> m_MainActionsCallbackInterfaces = new List<IMainActions>();
-        private readonly InputAction m_Main_A;
-        private readonly InputAction m_Main_B;
-        private readonly InputAction m_Main_LeftAnalog;
-        public struct MainActions
+        // Generic
+        private readonly InputActionMap m_Generic;
+        private List<IGenericActions> m_GenericActionsCallbackInterfaces = new List<IGenericActions>();
+        private readonly InputAction m_Generic_Navigation;
+        private readonly InputAction m_Generic_Click;
+        private readonly InputAction m_Generic_PointerPosition;
+        public struct GenericActions
         {
             private @GameInput m_Wrapper;
-            public MainActions(@GameInput wrapper) { m_Wrapper = wrapper; }
-            public InputAction @A => m_Wrapper.m_Main_A;
-            public InputAction @B => m_Wrapper.m_Main_B;
-            public InputAction @LeftAnalog => m_Wrapper.m_Main_LeftAnalog;
-            public InputActionMap Get() { return m_Wrapper.m_Main; }
+            public GenericActions(@GameInput wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Navigation => m_Wrapper.m_Generic_Navigation;
+            public InputAction @Click => m_Wrapper.m_Generic_Click;
+            public InputAction @PointerPosition => m_Wrapper.m_Generic_PointerPosition;
+            public InputActionMap Get() { return m_Wrapper.m_Generic; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
             public bool enabled => Get().enabled;
-            public static implicit operator InputActionMap(MainActions set) { return set.Get(); }
-            public void AddCallbacks(IMainActions instance)
+            public static implicit operator InputActionMap(GenericActions set) { return set.Get(); }
+            public void AddCallbacks(IGenericActions instance)
             {
-                if (instance == null || m_Wrapper.m_MainActionsCallbackInterfaces.Contains(instance)) return;
-                m_Wrapper.m_MainActionsCallbackInterfaces.Add(instance);
-                @A.started += instance.OnA;
-                @A.performed += instance.OnA;
-                @A.canceled += instance.OnA;
-                @B.started += instance.OnB;
-                @B.performed += instance.OnB;
-                @B.canceled += instance.OnB;
-                @LeftAnalog.started += instance.OnLeftAnalog;
-                @LeftAnalog.performed += instance.OnLeftAnalog;
-                @LeftAnalog.canceled += instance.OnLeftAnalog;
+                if (instance == null || m_Wrapper.m_GenericActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_GenericActionsCallbackInterfaces.Add(instance);
+                @Navigation.started += instance.OnNavigation;
+                @Navigation.performed += instance.OnNavigation;
+                @Navigation.canceled += instance.OnNavigation;
+                @Click.started += instance.OnClick;
+                @Click.performed += instance.OnClick;
+                @Click.canceled += instance.OnClick;
+                @PointerPosition.started += instance.OnPointerPosition;
+                @PointerPosition.performed += instance.OnPointerPosition;
+                @PointerPosition.canceled += instance.OnPointerPosition;
             }
 
-            private void UnregisterCallbacks(IMainActions instance)
+            private void UnregisterCallbacks(IGenericActions instance)
             {
-                @A.started -= instance.OnA;
-                @A.performed -= instance.OnA;
-                @A.canceled -= instance.OnA;
-                @B.started -= instance.OnB;
-                @B.performed -= instance.OnB;
-                @B.canceled -= instance.OnB;
-                @LeftAnalog.started -= instance.OnLeftAnalog;
-                @LeftAnalog.performed -= instance.OnLeftAnalog;
-                @LeftAnalog.canceled -= instance.OnLeftAnalog;
+                @Navigation.started -= instance.OnNavigation;
+                @Navigation.performed -= instance.OnNavigation;
+                @Navigation.canceled -= instance.OnNavigation;
+                @Click.started -= instance.OnClick;
+                @Click.performed -= instance.OnClick;
+                @Click.canceled -= instance.OnClick;
+                @PointerPosition.started -= instance.OnPointerPosition;
+                @PointerPosition.performed -= instance.OnPointerPosition;
+                @PointerPosition.canceled -= instance.OnPointerPosition;
             }
 
-            public void RemoveCallbacks(IMainActions instance)
+            public void RemoveCallbacks(IGenericActions instance)
             {
-                if (m_Wrapper.m_MainActionsCallbackInterfaces.Remove(instance))
+                if (m_Wrapper.m_GenericActionsCallbackInterfaces.Remove(instance))
                     UnregisterCallbacks(instance);
             }
 
-            public void SetCallbacks(IMainActions instance)
+            public void SetCallbacks(IGenericActions instance)
             {
-                foreach (var item in m_Wrapper.m_MainActionsCallbackInterfaces)
+                foreach (var item in m_Wrapper.m_GenericActionsCallbackInterfaces)
                     UnregisterCallbacks(item);
-                m_Wrapper.m_MainActionsCallbackInterfaces.Clear();
+                m_Wrapper.m_GenericActionsCallbackInterfaces.Clear();
                 AddCallbacks(instance);
             }
         }
-        public MainActions @Main => new MainActions(this);
-        private int m_MainSchemeIndex = -1;
-        public InputControlScheme MainScheme
+        public GenericActions @Generic => new GenericActions(this);
+        private int m_KeyboardMouseSchemeIndex = -1;
+        public InputControlScheme KeyboardMouseScheme
         {
             get
             {
-                if (m_MainSchemeIndex == -1) m_MainSchemeIndex = asset.FindControlSchemeIndex("Main");
-                return asset.controlSchemes[m_MainSchemeIndex];
+                if (m_KeyboardMouseSchemeIndex == -1) m_KeyboardMouseSchemeIndex = asset.FindControlSchemeIndex("Keyboard & Mouse");
+                return asset.controlSchemes[m_KeyboardMouseSchemeIndex];
             }
         }
-        public interface IMainActions
+        private int m_GamepadSchemeIndex = -1;
+        public InputControlScheme GamepadScheme
         {
-            void OnA(InputAction.CallbackContext context);
-            void OnB(InputAction.CallbackContext context);
-            void OnLeftAnalog(InputAction.CallbackContext context);
+            get
+            {
+                if (m_GamepadSchemeIndex == -1) m_GamepadSchemeIndex = asset.FindControlSchemeIndex("Gamepad");
+                return asset.controlSchemes[m_GamepadSchemeIndex];
+            }
+        }
+        public interface IGenericActions
+        {
+            void OnNavigation(InputAction.CallbackContext context);
+            void OnClick(InputAction.CallbackContext context);
+            void OnPointerPosition(InputAction.CallbackContext context);
         }
     }
 }
