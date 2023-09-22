@@ -11,7 +11,13 @@ namespace GFA.MiniGames.Data.Games
         
         protected override void OnBegin()
         {
-            SceneManager.LoadScene(_sceneName, LoadSceneMode.Additive);
+            var operation = SceneManager.LoadSceneAsync(_sceneName, LoadSceneMode.Additive);
+            
+
+            operation.completed += asyncOperation =>
+            {
+                SceneManager.SetActiveScene(SceneManager.GetSceneByName(_sceneName));
+            };
         }
 
         protected override void OnTick()

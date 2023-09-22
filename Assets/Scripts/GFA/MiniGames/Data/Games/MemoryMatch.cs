@@ -1,5 +1,6 @@
 using GFA.MiniGames.Games.MemoryMatch;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 namespace GFA.MiniGames.Data.Games
 {
@@ -35,7 +36,7 @@ namespace GFA.MiniGames.Data.Games
 
         protected override void OnEnd()
         {
-            Destroy(_uiInstance);
+            Destroy(_uiInstance.gameObject);
         }
     }
 }
