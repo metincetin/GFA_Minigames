@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eea3850568be5ef1380dd5e38528780d, type: 3}
   m_Name: WordScramble
   m_EditorClassIdentifier: 
-  _miniGameName: 
-  _icon: {fileID: 0}
-  _gamePrefab: {fileID: 0}
+  _miniGameName: Word Scramble
+  _icon: {fileID: 21300000, guid: d0206bdfbb96d38649182bf00d8158fc, type: 3}
+  _gamePrefab: {fileID: 5188788949133511634, guid: f74f40b53fe9b4f42b61734f65eab815,
+    type: 3}

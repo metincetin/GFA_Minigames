@@ -1545,6 +1545,7 @@ MonoBehaviour:
   _miniGames:
   - {fileID: 11400000, guid: 7203f1263b4d0f0858f1d16b550789ff, type: 2}
   - {fileID: 11400000, guid: eb1ea57d2be8a5a4c99371e87b1b26f1, type: 2}
+  - {fileID: 11400000, guid: 792fcd1b0105d5a5d8a18a639797397d, type: 2}
   _miniGamePlayer: {fileID: 306119737}
 --- !u!114 &1839932142
 MonoBehaviour:
