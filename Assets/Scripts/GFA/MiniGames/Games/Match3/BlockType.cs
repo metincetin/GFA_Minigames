@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace GFA.MiniGames.Games.Match3
 {
-    public class BlockType : MonoBehaviour
+    public abstract class BlockType : ScriptableObject
     {
         [SerializeField]
         private GameObject _graphics;
