@@ -11,5 +11,7 @@ namespace GFA.MiniGames.Games.Match3
         {
             return Instantiate(_graphics);
         }
+
+        public abstract void ExecuteClickInteraction(BlockInstance blockInstance);
     }
 }

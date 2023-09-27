@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdfa0e265fcadc88db3f9ca89c159fd6, type: 3}
   m_Name: RedBlock
   m_EditorClassIdentifier: 
+  _graphics: {fileID: 7175733456533594390, guid: 918b21f74f3535f5a8265cb4921bfbcd,
+    type: 3}

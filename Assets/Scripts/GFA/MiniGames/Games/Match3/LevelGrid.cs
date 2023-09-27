@@ -15,10 +15,23 @@ namespace GFA.MiniGames.Games.Match3
         
         [SerializeField]
         private GridLayoutGroup _grid;
+
+        [SerializeField] private BlockType _specialBlock;
         
         private void Start()
         {
-            _levelData = LevelData.CreateRandom(_gridSize, _blocks);
+            // _levelData = LevelData.CreateRandom(_gridSize, _blocks);
+            var levelDataBuilder = LevelData.LevelDataBuilder.Create()
+                .SetGridSize(_gridSize)
+                .SetBlock(new Vector2Int(0, 0), _specialBlock)
+                .SetBlock(new Vector2Int(5, 0), _specialBlock)
+                .SetRemainingRandomly(_blocks);
+
+            _levelData = levelDataBuilder.Build();
+
+            var randomBuilder = LevelData.LevelDataBuilder.Create()
+                .SetGridSize(_gridSize)
+                .SetRemainingRandomly(_blocks);
 
             for(int x = 0;x<_gridSize.x;x++)
             {
