@@ -1,10 +1,17 @@
+using System;
+using System.Collections.Generic;
+using DG.Tweening;
+using GFA.MiniGames.Games.Match3.BlockTypes;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace GFA.MiniGames.Games.Match3
 {
 	public class LevelData
 	{
 		private BlockInstance[] _blocks;
+
+		public static EmptyBlockType EmptyBlock { get; } = ScriptableObject.CreateInstance<EmptyBlockType>();
 
 		public Vector2Int GridSize { get; private set; }
 
@@ -16,13 +23,6 @@ namespace GFA.MiniGames.Games.Match3
 			blockInstance.BlockType = blockType;
 			blockInstance.LevelData = this;
 			
-			var graphics = blockType.CreateGraphics();
-			
-			graphics.transform.SetParent(blockInstance.transform);
-			
-			var graphicsTransform = graphics.transform as RectTransform;
-			graphicsTransform.offsetMax = Vector2.zero;
-			graphicsTransform.offsetMin = Vector2.zero;
 
 			_blocks[index] = blockInstance;
 
@@ -50,6 +50,33 @@ namespace GFA.MiniGames.Games.Match3
 			}
             
 			return ret;
+		}
+
+		public void RemoveBlock(Vector2Int position)
+		{
+			var block = GetBlock(position);
+			block.BlockType = EmptyBlock;
+		}
+		
+		public void Swap(Vector2Int from, Vector2Int to)
+		{
+			int fromIndex = GetIndexOfPosition(from);
+			int toIndex = GetIndexOfPosition(to);
+
+			BlockInstance fromBlock = _blocks[fromIndex];
+			BlockInstance toBlock = _blocks[toIndex];
+
+			_blocks[fromIndex] = toBlock;
+			_blocks[toIndex] = fromBlock;
+
+			fromBlock.Position = to;
+			toBlock.Position = from;
+
+			fromBlock.transform.DOMove(toBlock.transform.position, 1);
+			toBlock.transform.DOMove(fromBlock.transform.position, 1);
+
+			//fromBlock.OnMoved();
+			//toBlock.OnMoved();
 		}
 
 		public BlockInstance[] GetHorizontal(Vector2Int position)
@@ -83,6 +110,94 @@ namespace GFA.MiniGames.Games.Match3
 			}
 
 			return levelData;
+		}
+
+
+		public bool IsValidPosition(Vector2Int position)
+		{
+			return position.x >= 0 && position.y >= 0 && position.x < GridSize.x && position.y < GridSize.y;
+		}
+
+		private void ApplyColumnGravity(int columnIndex)
+		{
+			int lastEmptyBlockPosition = -1;
+			
+			for (int i = GridSize.y - 1; i >= 0; i--)
+			{
+				var block = GetBlock(new Vector2Int(columnIndex, i));
+				if (lastEmptyBlockPosition == -1)
+				{
+					if (block.BlockType == EmptyBlock)
+					{
+						lastEmptyBlockPosition = i;
+						continue;
+					}
+				}
+				else
+				if (block.BlockType != EmptyBlock)
+				{
+					Swap(new Vector2Int(columnIndex, lastEmptyBlockPosition), block.Position);
+						
+					ApplyColumnGravity(columnIndex);
+					break;
+				}
+			}
+		}
+        
+		
+		public void ApplyGravity()
+		{
+			for (int i = 0; i < GridSize.x; i++)
+			{
+				ApplyColumnGravity(i);
+			}
+		}
+
+		public BlockInstance[] GetAllMatchingNeighbors(Vector2Int position)
+		{
+			List<BlockInstance> validBlocks = new List<BlockInstance>();
+			List<int> visitedIndices = new List<int>();
+
+			var targetBlockType = GetBlock(position).BlockType;
+
+			void CheckNeighbors(Vector2Int position)
+			{
+				if (!IsValidPosition(position)) return;
+				
+				
+				var block = GetBlock(position);
+				var index = GetIndexOfPosition(position);
+				
+				if (targetBlockType != block.BlockType) return;
+				if (visitedIndices.Contains(index)) return;
+
+				visitedIndices.Add(index);
+				validBlocks.Add(block);
+
+				CheckNeighbors(position + new Vector2Int(-1, 0));
+				CheckNeighbors(position + new Vector2Int(1, 0));
+				CheckNeighbors(position + new Vector2Int(0, 1));
+				CheckNeighbors(position + new Vector2Int(0, -1));
+			}
+			
+			CheckNeighbors(position);
+
+			return validBlocks.ToArray();
+		}
+
+		public BlockInstance[] GetInRange(Vector2Int position, int range)
+		{
+			List<BlockInstance> ret = new List<BlockInstance>();
+			
+			foreach (var blockInstance in _blocks)
+			{
+				if (Vector2Int.Distance(blockInstance.Position, position) < range)
+				{
+					ret.Add(blockInstance);
+				}
+			}
+
+			return ret.ToArray();
 		}
 
 		public class LevelDataBuilder

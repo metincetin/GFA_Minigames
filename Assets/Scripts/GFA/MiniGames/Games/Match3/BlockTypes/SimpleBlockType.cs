@@ -10,7 +10,15 @@ namespace GFA.MiniGames.Games.Match3.BlockTypes
     {
         public override void ExecuteClickInteraction(BlockInstance blockInstance)
         {
-            blockInstance.GetComponentInChildren<Image>().DOFade(0, 0.1f);
+            var matching = blockInstance.LevelData.GetAllMatchingNeighbors(blockInstance.Position);
+            if (matching.Length >= 3)
+            {
+                foreach (var block in matching)
+                {
+                    blockInstance.LevelData.RemoveBlock(block.Position);
+                }
+                blockInstance.LevelData.ApplyGravity();
+            }
         }
     }
 }
