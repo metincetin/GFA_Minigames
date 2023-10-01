@@ -15,18 +15,35 @@ namespace GFA.MiniGames.Games.Match3
 
 		public Vector2Int GridSize { get; private set; }
 
+		public event Action<BlockInstance, Vector2Int> BlockMoved;
+
+		private List<NeighborDestructionListener> _neighborDestructionListeners =
+			new List<NeighborDestructionListener>();
+
 		private BlockInstance CreateBlockInstanceAt(int index, BlockType blockType)
 		{
-			var inst = new GameObject("BlockInstance", typeof(RectTransform), typeof(BlockInstance));
+			var inst = new GameObject("BlockInstance", typeof(BoxCollider2D), typeof(BlockInstance));
 			var blockInstance = inst.GetComponent<BlockInstance>();
 			blockInstance.Position = GetPositionOfIndex(index);
 			blockInstance.BlockType = blockType;
 			blockInstance.LevelData = this;
+			blockInstance.BlockType.OnAssigned(blockInstance);
 			
 
 			_blocks[index] = blockInstance;
 
 			return blockInstance;
+		}
+
+		public void RegisterNeighborDestructionListener(NeighborDestructionListener listener)
+		{
+			if (!_neighborDestructionListeners.Contains(listener))
+				_neighborDestructionListeners.Add(listener);
+		}
+		
+		public void UnregisterNeighborDestructionListener(NeighborDestructionListener listener)
+		{
+				_neighborDestructionListeners.Remove(listener);
 		}
 
 		public BlockInstance GetBlock(Vector2Int position)
@@ -56,6 +73,15 @@ namespace GFA.MiniGames.Games.Match3
 		{
 			var block = GetBlock(position);
 			block.BlockType = EmptyBlock;
+
+			foreach (NeighborDestructionListener listener in _neighborDestructionListeners)
+			{
+				if (Mathf.Abs(listener.TargetBlock.Position.x - position.x) == 1 &&
+				    Mathf.Abs(listener.TargetBlock.Position.y - position.y) == 1)
+				{
+					listener.Execute();
+				}
+			}
 		}
 		
 		public void Swap(Vector2Int from, Vector2Int to)
@@ -71,12 +97,9 @@ namespace GFA.MiniGames.Games.Match3
 
 			fromBlock.Position = to;
 			toBlock.Position = from;
-
-			fromBlock.transform.DOMove(toBlock.transform.position, 1);
-			toBlock.transform.DOMove(fromBlock.transform.position, 1);
-
-			//fromBlock.OnMoved();
-			//toBlock.OnMoved();
+			
+			BlockMoved?.Invoke(fromBlock,  to);
+			BlockMoved?.Invoke(toBlock,  from);
 		}
 
 		public BlockInstance[] GetHorizontal(Vector2Int position)
@@ -257,6 +280,24 @@ namespace GFA.MiniGames.Games.Match3
 				return ret;
 			}
 			
+		}
+
+		public class NeighborDestructionListener
+		{
+			public BlockInstance TargetBlock;
+
+			private Action Action;
+
+			public NeighborDestructionListener(BlockInstance targetBlock, Action action)
+			{
+				TargetBlock = targetBlock;
+				Action = action;
+			}
+
+			internal void Execute()
+			{
+				Action?.Invoke();
+			}
 		}
 	}
 }

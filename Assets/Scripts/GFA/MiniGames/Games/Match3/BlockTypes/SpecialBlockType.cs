@@ -5,6 +5,8 @@ namespace GFA.MiniGames.Games.Match3.BlockTypes
 	[CreateAssetMenu(menuName = "Game Data/Match3/Special Block")]
 	public class SpecialBlockType : BlockType
 	{
+		public override bool UseGravity => true;
+
 		public override void ExecuteClickInteraction(BlockInstance blockInstance)
 		{
 			Debug.Log("YOU INTERACTED WITH A SPECIAL BLOCK");
@@ -16,6 +18,11 @@ namespace GFA.MiniGames.Games.Match3.BlockTypes
 			{
 				blockInstance.LevelData.RemoveBlock(block.Position);
 			}
+			blockInstance.LevelData.ApplyGravity();
+		}
+
+		public override void OnAssigned(BlockInstance blockInstance)
+		{
 		}
 	}
 }

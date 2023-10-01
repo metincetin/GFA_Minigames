@@ -5,10 +5,14 @@ using UnityEngine.EventSystems;
 
 namespace GFA.MiniGames.Games.Match3
 {
-    public class BlockInstance : MonoBehaviour, IPointerDownHandler
+    public class BlockInstance : MonoBehaviour
     {
         public Vector2Int Position { get; set; }
         public LevelData LevelData { get; set; }
+
+        public float VerticalVelocity;
+        
+        public Vector3 DisplayPosition { get; set; }
 
 
         private GameObject _graphics;
@@ -30,16 +34,15 @@ namespace GFA.MiniGames.Games.Match3
 
                 if (_graphics)
                 {
-                    _graphics.transform.SetParent(transform);
+                    _graphics.transform.SetParent(transform, false);
 
-                    var graphicsTransform = _graphics.transform as RectTransform;
                     //graphicsTransform.offsetMax = Vector2.zero;
                     //graphicsTransform.offsetMin = Vector2.zero;
                 }
             }
         }
         
-        public void OnPointerDown(PointerEventData eventData)
+        public void OnClicked()
         {
             BlockType.ExecuteClickInteraction(this);
         }
@@ -49,16 +52,9 @@ namespace GFA.MiniGames.Games.Match3
             
         }
 
+
         public void OnMoved()
         {
-            if (!_graphics) return;
-
-            var graphicsPosition = transform.position;
-            
-            var newIndex = LevelData.GetIndexOfPosition(Position);
-            transform.SetSiblingIndex(newIndex);
-            
-            _graphics.transform.position = graphicsPosition;
         }
     }
 }
