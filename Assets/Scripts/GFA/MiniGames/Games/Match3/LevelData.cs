@@ -28,7 +28,7 @@ namespace GFA.MiniGames.Games.Match3
 			blockInstance.BlockType = blockType;
 			blockInstance.LevelData = this;
 			blockInstance.BlockType.OnAssigned(blockInstance);
-			
+
 
 			_blocks[index] = blockInstance;
 
@@ -40,10 +40,10 @@ namespace GFA.MiniGames.Games.Match3
 			if (!_neighborDestructionListeners.Contains(listener))
 				_neighborDestructionListeners.Add(listener);
 		}
-		
+
 		public void UnregisterNeighborDestructionListener(NeighborDestructionListener listener)
 		{
-				_neighborDestructionListeners.Remove(listener);
+			_neighborDestructionListeners.Remove(listener);
 		}
 
 		public BlockInstance GetBlock(Vector2Int position)
@@ -53,19 +53,24 @@ namespace GFA.MiniGames.Games.Match3
 
 		public int GetIndexOfPosition(Vector2Int position)
 		{
-			return position.x + position.y * GridSize.x;
+			return LevelUtility.GetIndexOfPosition(position, GridSize.x);
 		}
-		
+
+		public Vector2Int GetPositionOfIndex(int index)
+		{
+			return LevelUtility.GetPositionOfIndex(index, GridSize.x);
+		}
+
 		public BlockInstance[] GetVertical(Vector2Int position)
 		{
 			var ret = new BlockInstance[GridSize.y];
-			
+
 			for (int y = 0; y < GridSize.y; y++)
 			{
 				var newPosition = new Vector2Int(position.x, y);
 				ret[y] = GetBlock(newPosition);
 			}
-            
+
 			return ret;
 		}
 
@@ -83,7 +88,8 @@ namespace GFA.MiniGames.Games.Match3
 				}
 			}
 		}
-		
+
+
 		public void Swap(Vector2Int from, Vector2Int to)
 		{
 			int fromIndex = GetIndexOfPosition(from);
@@ -97,27 +103,52 @@ namespace GFA.MiniGames.Games.Match3
 
 			fromBlock.Position = to;
 			toBlock.Position = from;
-			
-			BlockMoved?.Invoke(fromBlock,  to);
-			BlockMoved?.Invoke(toBlock,  from);
+
+			BlockMoved?.Invoke(fromBlock, to);
+			BlockMoved?.Invoke(toBlock, from);
 		}
 
 		public BlockInstance[] GetHorizontal(Vector2Int position)
 		{
 			var ret = new BlockInstance[GridSize.x];
-			
+
 			for (int x = 0; x < GridSize.x; x++)
 			{
 				var newPosition = new Vector2Int(x, position.y);
 				ret[x] = GetBlock(newPosition);
 			}
-            
+
 			return ret;
 		}
 
-		public Vector2Int GetPositionOfIndex(int index)
+		public static LevelData CreateFromTemplate(LevelTemplate template)
 		{
-			return new Vector2Int(index % GridSize.x, index / GridSize.x);
+			var levelData = new LevelData();
+			levelData.GridSize = template.GridSize;
+			levelData._blocks = new BlockInstance[template.GridSize.x * template.GridSize.y];
+
+			for (var i = 0; i < levelData._blocks.Length; i++)
+			{
+				var blockType = template.BlockTypes[i];
+				if (blockType == null)
+				{
+					if (template.FillNullFromRandom)
+					{
+						var randomIndex = Random.Range(0, template.RandomBlock.Length);
+						blockType = template.RandomBlock[randomIndex];
+					}
+					else
+					{
+						blockType = EmptyBlock;
+					}
+				}
+
+				levelData.CreateBlockInstanceAt(i, blockType);
+			}
+
+			levelData.ApplyGravity();
+			
+			return levelData;
 		}
 
 		public static LevelData CreateRandom(Vector2Int gridSize, params BlockType[] blockTypes)
@@ -131,6 +162,7 @@ namespace GFA.MiniGames.Games.Match3
 				var randomBlockType = blockTypes[Random.Range(0, blockTypes.Length)];
 				levelData.CreateBlockInstanceAt(i, randomBlockType);
 			}
+			
 
 			return levelData;
 		}
@@ -141,11 +173,11 @@ namespace GFA.MiniGames.Games.Match3
 			return position.x >= 0 && position.y >= 0 && position.x < GridSize.x && position.y < GridSize.y;
 		}
 
-		private void ApplyColumnGravity(int columnIndex)
+		private void ApplyColumnGravity(int columnIndex, int rowIndex = 0)
 		{
 			int lastEmptyBlockPosition = -1;
-			
-			for (int i = GridSize.y - 1; i >= 0; i--)
+
+			for (int i = GridSize.y - 1 - rowIndex; i >= 0; i--)
 			{
 				var block = GetBlock(new Vector2Int(columnIndex, i));
 				if (lastEmptyBlockPosition == -1)
@@ -156,18 +188,24 @@ namespace GFA.MiniGames.Games.Match3
 						continue;
 					}
 				}
-				else
-				if (block.BlockType != EmptyBlock)
+				else if (block.BlockType != EmptyBlock)
 				{
-					Swap(new Vector2Int(columnIndex, lastEmptyBlockPosition), block.Position);
-						
-					ApplyColumnGravity(columnIndex);
+					if (block.BlockType.UseGravity)
+					{
+						Swap(new Vector2Int(columnIndex, lastEmptyBlockPosition), block.Position);
+						ApplyColumnGravity(columnIndex, rowIndex);
+					}
+					else
+					{
+						ApplyColumnGravity(columnIndex, GridSize.y - 1 - i);
+					}
+
 					break;
 				}
 			}
 		}
-        
-		
+
+
 		public void ApplyGravity()
 		{
 			for (int i = 0; i < GridSize.x; i++)
@@ -186,11 +224,11 @@ namespace GFA.MiniGames.Games.Match3
 			void CheckNeighbors(Vector2Int position)
 			{
 				if (!IsValidPosition(position)) return;
-				
-				
+
+
 				var block = GetBlock(position);
 				var index = GetIndexOfPosition(position);
-				
+
 				if (targetBlockType != block.BlockType) return;
 				if (visitedIndices.Contains(index)) return;
 
@@ -202,7 +240,7 @@ namespace GFA.MiniGames.Games.Match3
 				CheckNeighbors(position + new Vector2Int(0, 1));
 				CheckNeighbors(position + new Vector2Int(0, -1));
 			}
-			
+
 			CheckNeighbors(position);
 
 			return validBlocks.ToArray();
@@ -211,7 +249,7 @@ namespace GFA.MiniGames.Games.Match3
 		public BlockInstance[] GetInRange(Vector2Int position, int range)
 		{
 			List<BlockInstance> ret = new List<BlockInstance>();
-			
+
 			foreach (var blockInstance in _blocks)
 			{
 				if (Vector2Int.Distance(blockInstance.Position, position) < range)
@@ -232,14 +270,14 @@ namespace GFA.MiniGames.Games.Match3
 			{
 				return new LevelDataBuilder();
 			}
-			
+
 			public LevelDataBuilder SetGridSize(Vector2Int size)
 			{
 				_size = size;
 				_blocks = new BlockType[_size.x * _size.y];
 				return this;
 			}
-			
+
 			public LevelDataBuilder SetBlock(Vector2Int position, BlockType blockType)
 			{
 				_blocks[GetIndexOfPosition(position)] = blockType;
@@ -259,18 +297,18 @@ namespace GFA.MiniGames.Games.Match3
 
 				return this;
 			}
-			
+
 			public int GetIndexOfPosition(Vector2Int position)
 			{
 				return position.x + position.y * _size.x;
 			}
-			
+
 			public LevelData Build()
 			{
 				var ret = new LevelData();
 				ret.GridSize = _size;
 				ret._blocks = new BlockInstance[_size.x * _size.y];
-				
+
 				for (var i = 0; i < _blocks.Length; i++)
 				{
 					var blockType = _blocks[i];
@@ -279,7 +317,6 @@ namespace GFA.MiniGames.Games.Match3
 
 				return ret;
 			}
-			
 		}
 
 		public class NeighborDestructionListener

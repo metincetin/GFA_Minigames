@@ -17,6 +17,8 @@ namespace GFA.MiniGames.Games.Match3
 		[SerializeField] private BlockType _specialBlock;
 		[SerializeField] private BlockType _obstacleBlock;
 		[SerializeField] private BlockType _listenerBlock;
+
+		[SerializeField] private LevelTemplate _levelTemplate;
 		
 		[SerializeField]
 		private float _cellSize = 1;
@@ -35,11 +37,10 @@ namespace GFA.MiniGames.Games.Match3
 				.SetBlock(new Vector2Int(4, 10), _listenerBlock)
 				.SetRemainingRandomly(_blocks);
 
-			_levelData = levelDataBuilder.Build();
-
-			var randomBuilder = LevelData.LevelDataBuilder.Create()
-				.SetGridSize(_gridSize)
-				.SetRemainingRandomly(_blocks);
+			// _levelData = levelDataBuilder.Build();
+			
+			_levelData = LevelData.CreateFromTemplate(_levelTemplate);
+			_gridSize = _levelTemplate.GridSize;
 
 			for (int y = 0; y < _gridSize.y; y++)
 			{
@@ -81,9 +82,12 @@ namespace GFA.MiniGames.Games.Match3
 		{
 			var blockTransform = blockInstance.transform;
 
+			float vertical = 5;
+
 			if (blockTransform.position.y > blockInstance.DisplayPosition.y)
 			{
 				blockInstance.VerticalVelocity -= _gravity * Time.deltaTime;
+				vertical = blockInstance.VerticalVelocity;
 			}
 			else
 			{
@@ -96,7 +100,7 @@ namespace GFA.MiniGames.Games.Match3
 				5 * Time.deltaTime);
 					
 			newPosition.y = Mathf.MoveTowards(blockTransform.position.y, blockInstance.DisplayPosition.y,
-				blockInstance.VerticalVelocity * Time.deltaTime);
+				vertical * Time.deltaTime);
 
 					
 			blockTransform.position = newPosition;
