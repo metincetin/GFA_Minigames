@@ -447,6 +447,7 @@ MonoBehaviour:
   _specialBlock: {fileID: 11400000, guid: 10a3a94cf33be6b37bb1a22aa4cb4d5a, type: 2}
   _obstacleBlock: {fileID: 11400000, guid: 49319dd4890b04a799d4428ad68a6649, type: 2}
   _listenerBlock: {fileID: 11400000, guid: 06403c2d33feb1be3899236b72cfdc8b, type: 2}
+  _levelTemplate: {fileID: 11400000, guid: 61200083bce18bab6b5f0f5ffa7fd951, type: 2}
   _cellSize: 1
   _gravity: -9.81
 --- !u!1660057539 &9223372036854775807
