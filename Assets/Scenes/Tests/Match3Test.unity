@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 733513482}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -349,6 +349,50 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!1 &935693847
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 935693849}
+  - component: {fileID: 935693848}
+  m_Layer: 0
+  m_Name: Player
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &935693848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 935693847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46acd95eeb6a9ca249f263afb9604406, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &935693849
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 935693847}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1053919578
 GameObject:
   m_ObjectHideFlags: 0
@@ -393,7 +437,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47995b92115d242a193d754813c4e4da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gridSize: {x: 8, y: 5}
+  _gridSize: {x: 8, y: 15}
   _blocks:
   - {fileID: 11400000, guid: f5315f7295c9002a69a6564a677293da, type: 2}
   - {fileID: 11400000, guid: 3238c5b97be61305898ee1336ae3ae25, type: 2}
@@ -401,7 +445,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3fb901e187a47a8f68e1967af658792a, type: 2}
   _content: {fileID: 1053919579}
   _specialBlock: {fileID: 11400000, guid: 10a3a94cf33be6b37bb1a22aa4cb4d5a, type: 2}
+  _obstacleBlock: {fileID: 11400000, guid: 49319dd4890b04a799d4428ad68a6649, type: 2}
+  _listenerBlock: {fileID: 11400000, guid: 06403c2d33feb1be3899236b72cfdc8b, type: 2}
   _cellSize: 1
+  _gravity: -9.81
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -409,3 +456,4 @@ SceneRoots:
   - {fileID: 624919174}
   - {fileID: 733513481}
   - {fileID: 1053919579}
+  - {fileID: 935693849}
