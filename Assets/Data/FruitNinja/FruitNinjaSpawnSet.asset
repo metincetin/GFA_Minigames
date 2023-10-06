@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dae1f4a07f0c7bb39697df7ba644acd, type: 3}
+  m_Name: FruitNinjaSpawnSet
+  m_EditorClassIdentifier: 
+  _objects:
+  - GameObject: {fileID: 5335930121446020261, guid: 7a4871f41ae219541b525561e511e09f,
+      type: 3}
+    Weight: 5
+  - GameObject: {fileID: 2605310676414028121, guid: ddd86116719fe2566bd140b4097db6e5,
+      type: 3}
+    Weight: 5
+  - GameObject: {fileID: 7425014517883458441, guid: 06495968b9de39a7fadfdb7171b08289,
+      type: 3}
+    Weight: 1
