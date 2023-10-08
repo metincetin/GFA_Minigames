@@ -16,9 +16,6 @@ MonoBehaviour:
   - Object: {fileID: 5588343836265048674, guid: 52ee3ed94986aeb8c8cbd97197346e98,
       type: 3}
     Weight: 5
-  - Object: {fileID: 5588343836265048674, guid: 52ee3ed94986aeb8c8cbd97197346e98,
+  - Object: {fileID: 5588343836265048674, guid: 4782f7d2351eb996db132e3ccb91a942,
       type: 3}
-    Weight: 5
-  - Object: {fileID: 5588343836265048674, guid: 52ee3ed94986aeb8c8cbd97197346e98,
-      type: 3}
-    Weight: 1
+    Weight: 3

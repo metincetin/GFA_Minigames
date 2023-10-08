@@ -147,9 +147,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3134672550846078110}
   - component: {fileID: 5002208871650384559}
-  - component: {fileID: 6215476877739210126}
+  - component: {fileID: -3862051567821637370}
   m_Layer: 9
-  m_Name: Lemon
+  m_Name: Watermelon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -198,7 +198,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &6215476877739210126
+--- !u!114 &-3862051567821637370
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

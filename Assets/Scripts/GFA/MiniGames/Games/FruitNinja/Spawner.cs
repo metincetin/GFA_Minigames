@@ -34,7 +34,6 @@ namespace GFA.MiniGames.Games.FruitNinja
 		
 		private float CalculateSpawnDuration()
 		{
-			
 			return 1f;
 		}
 
@@ -45,6 +44,7 @@ namespace GFA.MiniGames.Games.FruitNinja
 				yield return new WaitForSeconds(CalculateSpawnDuration());
 				var objToInstantiate = _data.SelectRandom();
 				var inst = Instantiate(objToInstantiate, _spawnPoint.position, Quaternion.identity);
+				
 				if (inst.TryGetComponent(out Rigidbody rigidbody))
 				{
 					rigidbody.velocity = CalculateRandomVelocity();
