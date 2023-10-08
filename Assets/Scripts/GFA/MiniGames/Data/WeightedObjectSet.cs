@@ -3,11 +3,10 @@ using UnityEngine;
 
 namespace GFA.MiniGames.Data
 {
-    [CreateAssetMenu(menuName = "Data/Weighted Game Object Set")]
-    public class WeightedGameObjectSet : ScriptableObject
+    public abstract class WeightedObjectSet<T> : ScriptableObject where T: class
     {
         [SerializeField]
-        private WeightedGameObject[] _objects;
+        private WeightedObject<T>[] _objects;
 
         private float TotalWeight
         {
@@ -23,7 +22,7 @@ namespace GFA.MiniGames.Data
             }
         }
         
-        public GameObject SelectRandom()
+        public T SelectRandom()
         {
             var totalWeight = TotalWeight;
             var randomValue = Random.value * totalWeight;
@@ -34,7 +33,7 @@ namespace GFA.MiniGames.Data
                 currWeight += obj.Weight;
                 if (randomValue < currWeight)
                 {
-                    return obj.GameObject;
+                    return obj.Object;
                 }
             }
             return null;
@@ -42,9 +41,9 @@ namespace GFA.MiniGames.Data
         
 
         [System.Serializable]
-        public class WeightedGameObject
+        public class WeightedObject<T> where T: class
         {
-            public GameObject GameObject;
+            public T Object;
             public float Weight;
         }
     }
