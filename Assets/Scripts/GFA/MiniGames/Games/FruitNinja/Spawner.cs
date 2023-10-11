@@ -14,6 +14,7 @@ namespace GFA.MiniGames.Games.FruitNinja
 		[SerializeField] private Transform _spawnPoint;
 		[SerializeField] private Vector2 _randomVelocityMagnitudeRange;
 		[SerializeField] private float _randomVelocityAngle;
+		[SerializeField] private float _maxAngularVelocity;
 
 		private void Start()
 		{
@@ -48,6 +49,7 @@ namespace GFA.MiniGames.Games.FruitNinja
 				if (inst.TryGetComponent(out Rigidbody rigidbody))
 				{
 					rigidbody.velocity = CalculateRandomVelocity();
+					rigidbody.angularVelocity = Random.onUnitSphere * _maxAngularVelocity;
 				}
 			}
 		}

@@ -55,6 +55,15 @@ namespace GFA.MiniGames.Input
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""PointerDelta"",
+                    ""type"": ""Value"",
+                    ""id"": ""0d7a9ef3-f666-40b8-b857-89688d77cd7f"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -156,6 +165,17 @@ namespace GFA.MiniGames.Input
                     ""action"": ""PointerPosition"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4d8c2d48-6bb9-4a33-a530-88bb868b0090"",
+                    ""path"": ""<Pointer>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PointerDelta"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -195,6 +215,7 @@ namespace GFA.MiniGames.Input
             m_Generic_Navigation = m_Generic.FindAction("Navigation", throwIfNotFound: true);
             m_Generic_Click = m_Generic.FindAction("Click", throwIfNotFound: true);
             m_Generic_PointerPosition = m_Generic.FindAction("PointerPosition", throwIfNotFound: true);
+            m_Generic_PointerDelta = m_Generic.FindAction("PointerDelta", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -259,6 +280,7 @@ namespace GFA.MiniGames.Input
         private readonly InputAction m_Generic_Navigation;
         private readonly InputAction m_Generic_Click;
         private readonly InputAction m_Generic_PointerPosition;
+        private readonly InputAction m_Generic_PointerDelta;
         public struct GenericActions
         {
             private @GameInput m_Wrapper;
@@ -266,6 +288,7 @@ namespace GFA.MiniGames.Input
             public InputAction @Navigation => m_Wrapper.m_Generic_Navigation;
             public InputAction @Click => m_Wrapper.m_Generic_Click;
             public InputAction @PointerPosition => m_Wrapper.m_Generic_PointerPosition;
+            public InputAction @PointerDelta => m_Wrapper.m_Generic_PointerDelta;
             public InputActionMap Get() { return m_Wrapper.m_Generic; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -284,6 +307,9 @@ namespace GFA.MiniGames.Input
                 @PointerPosition.started += instance.OnPointerPosition;
                 @PointerPosition.performed += instance.OnPointerPosition;
                 @PointerPosition.canceled += instance.OnPointerPosition;
+                @PointerDelta.started += instance.OnPointerDelta;
+                @PointerDelta.performed += instance.OnPointerDelta;
+                @PointerDelta.canceled += instance.OnPointerDelta;
             }
 
             private void UnregisterCallbacks(IGenericActions instance)
@@ -297,6 +323,9 @@ namespace GFA.MiniGames.Input
                 @PointerPosition.started -= instance.OnPointerPosition;
                 @PointerPosition.performed -= instance.OnPointerPosition;
                 @PointerPosition.canceled -= instance.OnPointerPosition;
+                @PointerDelta.started -= instance.OnPointerDelta;
+                @PointerDelta.performed -= instance.OnPointerDelta;
+                @PointerDelta.canceled -= instance.OnPointerDelta;
             }
 
             public void RemoveCallbacks(IGenericActions instance)
@@ -337,6 +366,7 @@ namespace GFA.MiniGames.Input
             void OnNavigation(InputAction.CallbackContext context);
             void OnClick(InputAction.CallbackContext context);
             void OnPointerPosition(InputAction.CallbackContext context);
+            void OnPointerDelta(InputAction.CallbackContext context);
         }
     }
 }
