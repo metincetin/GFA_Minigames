@@ -47,7 +47,6 @@ namespace GFA.MiniGames.Games.FruitNinja
                 {
                     if (!cuttable.IsCut)
                     {
-
                         Vector3 normal = mouseDelta.normalized;
                         var planeNormal = Vector3.Cross(normal, Vector3.forward);
                         var dist = Vector3.Dot(hit.point - hit.transform.position, planeNormal); 

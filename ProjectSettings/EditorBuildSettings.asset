@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Games/MiniGame_Match3.unity
     guid: c01ad5fd06dff4580ac517cdb915d440
+  - enabled: 1
+    path: Assets/Scenes/Games/MiniGame_FruitNinja.unity
+    guid: 84fee5f65c5ea9a08a2c0a9ab1e1627c
   m_configObjects: {}

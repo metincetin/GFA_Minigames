@@ -14,7 +14,9 @@ namespace GFA.MiniGames.Games.FruitNinja
             var velocity = GetComponent<Rigidbody>().velocity;
             
             var side1 = Instantiate(_graphics, transform.position, transform.rotation);
-	    var localNormal = transform.InverseTransformDirection(normal);
+            
+            var localNormal = transform.InverseTransformDirection(normal);
+            
             side1.material.SetVector("_Plane",new Vector4(localNormal.x, localNormal.y, localNormal.z, distance));
             var rb1 = side1.AddComponent<Rigidbody>();
             rb1.velocity = velocity;
