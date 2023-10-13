@@ -151,28 +151,22 @@ Shader "Example/URPUnlitShaderBasic"
                 return res * res;
             }
 
-            const float2x2 mtx =  float2x2(0.80, 0.60, -0.60, -0.80);
-
             float fbm(float2 p)
             {
-                float f = 0.0;
-
-                f += 0.500000 * noise(p + _Time.y);
-                p = mul(p * 2.02, mtx);
-                f += 0.031250 * noise(p);
-                p = mul(p * 2.01, mtx);
-                f += 0.250000 * noise(p);
-                p = mul(p * 2.03, mtx);
-                f += 0.125000 * noise(p);
-                p = mul( p * 2.01, mtx);
-                f += 0.062500 * noise(p);
-                p = mul( p* 2.01, mtx);
-                f += 0.015625 * noise(p + sin(_Time.y));
-
-                return f / 0.96875;
+                float G = exp2(-0.5);
+                float f = 1.0;
+                float a = 1.0;
+                float t = 0.0;
+                for( int i=0; i<4; i++ )
+                {
+                    t += a*noise(f*(p + _Time.x * (i * 0.4)));
+                    f *= 2.0;
+                    a *= G;
+                }
+                return t;
             }
 
-            float pattern(in float2 p)
+            float pattern(float2 p)
             {
                 return fbm(p + fbm(p + fbm(p)));
             }
@@ -228,10 +222,13 @@ Shader "Example/URPUnlitShaderBasic"
 
 
 
-                float shade = pattern(IN.uv * 10);
+                float shade = 1 - pattern(IN.uv * 5);
+
+
+
                 return float4(colormap(shade).rgb, shade);
 
-                return float4((ambientColor + diffuseColor + specular), 1) * float4(1, 1, 1, 1);
+                // return float4((ambientColor + diffuseColor + specular), 1) * float4(1, 1, 1, 1);
 
 
                 
